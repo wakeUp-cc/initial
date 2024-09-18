@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+	<property name="project.name" value="z-desk-intelligence-etl" />
+	<property name="log.root.path" value="./" />
+
+	<!-- 定义日志输出格式 -->
+	<appender name="DEBUG_FILE"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Prudent>true</Prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.root.path}/logs/${project.name}.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<encoder>
+			<pattern>[cloud-authc][%level][%d{yyyy-MM-dd-HH:mm:ss}] [%thread] %logger[%line] | %msg%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+	</appender>
+	<appender name="ERROR_FILE"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Prudent>true</Prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.root.path}/logs/${project.name}_error.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<encoder>
+			<pattern>[cloud-auth][%level][%d{yyyy-MM-dd-HH:mm:ss}] [%thread] %logger[%line]: %msg%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+	</appender>
+
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>[cloud-authc][%level][%d{yyyy-MM-dd-HH:mm:ss}] [%thread] %logger[%line]: %msg%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+	</appender>
+
+	<logger name="Validator" level="INFO"/>
+	<logger name="com.baomidou" level="WARN"/>
+	<logger name="com.zaxxer.hikari" level="WARN"/>
+	<logger name="org.mybatis.spring" level="WARN"/>
+	<logger name="org.aspectj.weaver" level="WARN"/>
+	<logger name="org.apache.ibatis" level="WARN"/>
+	<logger name="com.ibatis" level="WARN"/>
+	<logger name="com.ibatis.common.jdbc.SimpleDataSource" level="WARN"/>
+	<logger name="com.ibatis.common.jdbc.ScriptRunner" level="WARN"/>
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate"
+			level="WARN"/>
+	<logger name="com.apache.ibatis" level="WARN"/>
+	<logger name="java.sql.Connection" level="DEBUG"/>
+	<logger name="java.sql.Statement" level="DEBUG"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
+	<logger name="java.sql.ResultSet" level="DEBUG"/>
+	<logger name="org.apache.shiro" level="WARN"/>
+	<logger name="net.sf.ehcache" level="WARN"/>
+	<logger name="org.apache" level="WARN"/>
+	<logger name="org.quartz" level="WARN"/>
+	<logger name="springfox.documentation" level="WARN"/>
+	<logger name="org.jboss" level="WARN"/>
+	<logger name="org.hibernate.validator" level="WARN"/>
+	<logger name="org.hibernate" level="WARN"/>
+	<logger name="org.hibernate.ejb.HibernatePersistence" level="WARN"/>
+	<logger name="com.alibaba.druid" level="WARN"/>
+	<logger name="io.lettuce" level="WARN"/>
+	<logger name="com.sun.jersey.server" level="WARN"/>
+	<logger name="com.netflix" level="WARN"/>
+	<logger name="com.netflix.config" level="WARN"/>
+	<logger name="com.netflix.eureka" level="WARN"/>
+	<logger name="org.springframework.boot" level="WARN"/>
+	<logger name="org.springframework.beans" level="WARN"/>
+	<logger name="org.springframework.data" level="WARN"/>
+	<logger name="org.springframework.web" level="WARN"/>
+	<logger name="org.springframework.scheduling" level="WARN"/>
+	<logger name="org.springframework.jmx" level="WARN"/>
+	<logger name="org.mongodb.driver" level="WARN"/>
+	<logger name="org.springframework.core" level="WARN"/>
+	<logger name="org.springframework.context" level="WARN"/>
+	<logger name="org.springframework.aop" level="WARN"/>
+	<logger name="org.springframework.jdbc" level="WARN"/>
+	<logger name="org.springframework" level="WARN"/>
+	<logger name="javax.activation" level="WARN"/>
+	<logger name="sun.rmi" level="WARN"/>
+	<logger name="io.netty" level="WARN"/>
+	<logger name="org.apache.kafka" level="ERROR"/>
+	<logger name="org.apache.kafka" level="ERROR"/>
+	<logger name="com.alibaba.nacos" level="ERROR"/>
+	<logger name="com.alibaba.nacos.naming" level="ERROR"/>
+	<logger name="sun.net.www" level="ERROR"/>
+	<logger name="ma.glasnost.orika" level="ERROR"/>
+	<logger name="springfox.bean" level="ERROR"/>
+	<logger name="com.alibaba.cloud" level="ERROR"/>
+	<logger name="com.jsmile.cloud.accountcenter.api" level="ERROR"/>
+	<logger name="com.jsmile.cloud.goodscenter.api" level="ERROR"/>
+	<logger name="com.jsmile.cloud.tradecenter.api" level="ERROR"/>
+	<logger name="com.jsmile.cloud.msgcenter.api" level="ERROR"/>
+	<logger name="com.jsmile.cloud.promotioncenter.api" level="ERROR"/>
+
+	<!-- 测试环境+开发环境. 多个使用逗号隔开. -->
+	<springProfile name="local,dev,default,test,pre">
+		<root level="DEBUG">
+			<appender-ref ref="DEBUG_FILE"/>
+			<appender-ref ref="ERROR_FILE"/>
+		</root>
+	</springProfile>
+
+
+	<!-- 生产环境. -->
+	<springProfile name="prod">
+		<root level="INFO">
+			<appender-ref ref="ERROR_FILE"/>
+			<appender-ref ref="DEBUG_FILE"/>
+		</root>
+	</springProfile>
+</configuration>
