@@ -95,6 +95,8 @@
                 <includes>
                     <include>**/*</include>
                 </includes>
+                <!--开启过滤，用指定的参数替换directory下的文件中的参数-->
+                <filtering>true</filtering>
             </resource>
         </resources>
     </build>
